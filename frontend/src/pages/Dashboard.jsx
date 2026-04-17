@@ -27,43 +27,32 @@ function Dashboard() {
     </h2>
 
     {applications.length === 0 ? (
-      <p className="text-center text-gray-500 text-lg">
-        No applications yet
-      </p>
-    ) : (
-      <div className="max-w-4xl mx-auto space-y-6">
-        {applications.map((app) => (
-          <div
-            key={app._id}
-            className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition duration-300"
-          >
-            <h3 className="text-2xl font-semibold text-indigo-600 mb-2">
-              {app.job.title}
-            </h3>
-
-            <div className="flex justify-between items-center flex-wrap gap-3">
-              
-              <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  app.status === "pending"
-                    ? "bg-yellow-100 text-yellow-700"
-                    : app.status === "accepted"
-                    ? "bg-green-100 text-green-700"
-                    : "bg-red-100 text-red-700"
-                }`}
-              >
-                {app.status}
-              </span>
-
-              <p className="text-gray-500 text-sm">
-                Applied On:{" "}
-                {new Date(app.createdAt).toLocaleDateString()}
-              </p>
-            </div>
+  <p className="text-center text-gray-500 text-lg">
+    No applications yet
+  </p>
+) : (
+  <div className="max-w-4xl mx-auto space-y-6">
+    {applications.map((app) => {
+      if (!app.job) {
+        return (
+          <div key={app._id} className="bg-white p-6 rounded-xl shadow">
+            <p className="text-red-500 font-medium">
+              Job has been removed
+            </p>
           </div>
-        ))}
-      </div>
-    )}
+        );
+      }
+
+      return (
+        <div key={app._id} className="bg-white p-6 rounded-2xl shadow-md">
+          <h3 className="text-2xl font-semibold text-indigo-600 mb-2">
+            {app.job.title}
+          </h3>
+        </div>
+      );
+    })}
+  </div>
+)}
   </div>
 );
 }

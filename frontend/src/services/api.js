@@ -1,9 +1,10 @@
-import axios from "axios"
+import axios from "axios";
 
-const api = axios.create({
-baseURL: "https://job-portal-1-2o3r.onrender.com/api/v1"
+const API = axios.create({
+  baseURL: "https://job-portal-1-2o3r.onrender.com/api/v1",
 });
-api.interceptors.request.use((req) => {
+
+API.interceptors.request.use((req) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -12,4 +13,5 @@ api.interceptors.request.use((req) => {
 
   return req;
 });
-export default api;
+
+export default API;
